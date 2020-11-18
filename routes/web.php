@@ -21,10 +21,11 @@ $router->get('/', function () use ($router) {
 $router->get('/blog', 'BlogController@index');
 $router->get('/blog/{id}', 'BlogController@show');
 
-Route::group(['middleware' => 'auth'], function () {
     
-    Route::post('/register', 'UserController@register');
-    Route::post('/login', 'UserController@login');
+Route::post('/register', 'UserController@register');
+Route::post('/login', 'UserController@login');
+
+Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/logout', 'UserController@logout');
  
