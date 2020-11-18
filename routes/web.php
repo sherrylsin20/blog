@@ -17,11 +17,20 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group([
-    'prefix' => 'auth',
-], function() use ($router) {
-    $router->post('/register', 'UserController@register');
-    $router->post('/login', 'UserController@login');
+//BOOKS GET
+$router->get('/blog', 'BlogController@index');
+$router->get('/blog/{id}', 'BlogController@show');
 
-    $router->get('/logout', 'UserController@logout');
+Route::group(['middleware' => 'auth'], function () {
+    
+    Route::post('/register', 'UserController@register');
+    Route::post('/login', 'UserController@login');
+
+    Route::get('/logout', 'UserController@logout');
+ 
+    Route::post('/blog', 'BlogController@store');
+    Route::put('/blog/{id}', 'BlogController@update');
+    Route::delete('/blog/{id}', 'BlogController@destroy');
 });
+
+
